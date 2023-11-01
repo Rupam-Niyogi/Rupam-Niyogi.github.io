@@ -1,56 +1,33 @@
 // Multi Coloured Grid
-// Your Name
-// Date
-//
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
-
-
-
-
-
-
-
-
-
-
-
-
-let numSeg = 20;
-let segHeight;
-let currentbackground = 0;
-const GRIDSPACING = 20;
+// Rupam Niyogi
+// october 3rd 2023
+// Makes a random coloured grid where if you left click you zoom in and if you right click you zoom out. each time you click the grid randomizes. If a key is pressed the grid randomizes in place
+let Grid_spacing= 15; // grid size
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  segHeight = height / numSeg;
-
-}
-
-function gradient() {
-  
-  for (let i = 0; i < numSeg; i++) {
-    let y = i * segHeight;
-    let c = map(y, 0, height, 0, 255);
-    fill(c, 255 - c, 100);
-    rect(0, y, width, segHeight);
-  }
-  
-}
-
-
-
-
-function draw() {
-
-  background(220);
-  gradient();
+  document.addEventListener("contextmenu", event => event.preventDefault()); // thing for right click
   grid();
 }
-
 function grid() {
-  for (let x = 0; x < width; x += GRIDSPACING) {
-    for (let y = 0; y < height; y += GRIDSPACING) {
-      print(x + "," + y);
+  for (let x = 0; x < width; x += Grid_spacing) { // creates a random colour in each square 
+    for (let y = 0; y < height; y += Grid_spacing) {
+      fill(random(255),random(255),random(255)); 
+      rect (x,y,Grid_spacing);
     }
   }
+}
+function mousePressed(){ 
+  if(mouseButton===LEFT){ // raises grid spacing and resets grid 
+    Grid_spacing +=5;
+    grid();
+    background();
+  }
+  if(mouseButton===RIGHT){ //lowers grid spacing and resets grid 
+    Grid_spacing -=5; 
+    grid();
+    background();
+  }
+} 
+function keyPressed(){// resets grid if key is pressed 
+  grid();
 }
